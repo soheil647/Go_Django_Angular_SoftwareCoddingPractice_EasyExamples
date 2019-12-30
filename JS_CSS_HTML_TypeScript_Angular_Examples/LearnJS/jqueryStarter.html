@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1 class="Div" id="Head1">Jquery Starter Pack</h1>
+<h1  id="Head2">Jquery Starter Pack</h1>
+<h1 class="Div" id="Head3">Jquery Starter Pack</h1>
+<div class="Div">
+    <p>This is 1 para</p>
+    <p>This is 2 para</p>
+    <p>This is 3 para</p>
+</div>
+<button onclick="fn1()" id="btm1">Click me</button>
+
+</body>
+
+<script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script>
+function fn1() {
+    $(".Div").fadeToggle(2000)
+}
+</script>
+</html>

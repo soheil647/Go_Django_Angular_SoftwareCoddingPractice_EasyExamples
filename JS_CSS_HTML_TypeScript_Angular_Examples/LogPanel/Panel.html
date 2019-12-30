@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Panel</title>
+    <style>
+        body {
+            background-image: url("Onglet02.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #444;
+            font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif;
+            text-shadow: 0 1px 0 #fff;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        table {
+            background: #f5f5f5;
+            border-collapse: separate;
+            box-shadow: inset 0 1px 0 #fff;
+            font-size: 12px;
+            line-height: 24px;
+            margin: 30px auto;
+            text-align: left;
+            width: 800px;
+        }
+
+        th {
+            background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+            border-left: 1px solid #555;
+            border-right: 1px solid #777;
+            border-top: 1px solid #555;
+            border-bottom: 1px solid #333;
+            box-shadow: inset 0 1px 0 #999;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 15px;
+            position: relative;
+            text-shadow: 0 1px 0 #000;
+        }
+
+        th:after {
+            background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.08));
+            content: '';
+            display: block;
+            height: 25%;
+            left: 0;
+            margin: 1px 0 0 0;
+            position: absolute;
+            top: 25%;
+            width: 100%;
+        }
+
+        th:first-child {
+            border-left: 1px solid #777;
+            box-shadow: inset 1px 1px 0 #999;
+        }
+
+        th:last-child {
+            box-shadow: inset -1px 1px 0 #999;
+        }
+
+        td {
+            border-right: 1px solid #fff;
+            border-left: 1px solid #e8e8e8;
+            border-top: 1px solid #fff;
+            border-bottom: 1px solid #e8e8e8;
+            padding: 10px 15px;
+            position: relative;
+            transition: all 300ms;
+        }
+
+        td:first-child {
+            box-shadow: inset 1px 0 0 #fff;
+        }
+
+        td:last-child {
+            border-right: 1px solid #e8e8e8;
+            box-shadow: inset -1px 0 0 #fff;
+        }
+
+        tr {
+            background: url(https://jackrugile.com/images/misc/noise-diagonal.png);
+        }
+
+        tr:nth-child(odd) td {
+            background: #f1f1f1 url(https://jackrugile.com/images/misc/noise-diagonal.png);
+        }
+
+        tr:last-of-type td {
+            box-shadow: inset 0 -1px 0 #fff;
+        }
+
+        tr:last-of-type td:first-child {
+            box-shadow: inset 1px -1px 0 #fff;
+        }
+
+        tr:last-of-type td:last-child {
+            box-shadow: inset -1px -1px 0 #fff;
+        }
+
+        tbody:hover td {
+            color: transparent;
+            text-shadow: 0 0 3px #aaa;
+        }
+
+        tbody:hover tr:hover td {
+            color: #444;
+            text-shadow: 0 1px 0 #fff;
+        }
+
+        input{
+            border: 2px solid #93aaff;
+            border-radius: 25px;
+            background: #828282;
+            padding: 5px;
+        }
+        button {
+            border: none;
+            display: block;
+            text-align: center;
+            cursor: pointer;
+            text-transform: uppercase;
+            outline: none;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            background-color: #222;
+            padding: 17px 60px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+        }
+        span{
+            color: #93aaff;
+        }
+        b.FirstUser{
+            color: #85037a;
+        }
+        div.Topic{
+
+        }
+    </style>
+</head>
+<body>
+
+<div class="Topic"><h1>Sepantab Chat Panel</h1></div>
+
+<div ng-app="myApp" ng-controller="namesCtrl">
+    <p ng-hide="showDetails">Search Your Customer:<input id="search" type="text" placeholder=" Search" ng-model="test"></p>
+    <table class="rwd-table" ng-hide="showDetails">
+        <div class="MyTable">
+            <th>Relay Number</th>
+            <th>Day</th>
+            <th>New_PLan</th>
+            <th>Emergency</th>
+            <th>Reset</th>
+            <th>Details!</th>
+            <tr ng-repeat="x in RelaysNewPlan | filter:test"  ng-click="count=5" >
+                <th>{{x.RelayNumber}}</th>
+                <th>{{x.day}}</th>
+                <th>{{x.new_plan}}</th>
+                <th>{{x.emergency}}</th>
+                <th>{{x.reset}}</th>
+                <th><button ng-click="myFunc1(x)">Click for Detail</button></th>
+            </tr>
+        </div>
+    </table>
+
+    <div ng-show="showDetails">
+        <button ng-click="myFunc2()">Back</button>
+        <p>Search Your Message:<input id="search1" type="text" placeholder=" Search" ng-model="message"></p>
+        <span><b>RelayNumber: {{RelayNumber}} <br><br>  Emergency: {{Emergency}} <br><br> reset: {{Reset}}  </b> </span><br>
+        </table>
+    </div>
+</div>
+
+<script>
+    angular.module('myApp', []).controller('namesCtrl', function($scope) {
+        $scope.RelaysNewPlan = [
+            {RelayNumber:'1',day:'11', new_plan:'true', emergency:"true", reset:"false"},
+            {RelayNumber:'2',day:'11', new_plan:'true', emergency:"true", reset:"false"},
+            {RelayNumber:'3',day:'11', new_plan:'true', emergency:"true", reset:"false"},
+            {RelayNumber:'4',day:'11', new_plan:'true', emergency:"true", reset:"false"},
+            {RelayNumber:'5',day:'11', new_plan:'true', emergency:"true", reset:"false"},
+            {RelayNumber:'6',day:'11', new_plan:'true', emergency:"true", reset:"false"},
+            {RelayNumber:'7',day:'11', new_plan:'true', emergency:"true", reset:"false"},
+            {RelayNumber:'8',day:'11', new_plan:'true', emergency:"true", reset:"false"},
+        ];
+        $scope.message1 = [
+            "Hello",
+            "man soheilam",
+            "man dokhtaram",
+            "WTF",
+        ]
+        $scope.message2 = [
+            "HI",
+            "man parnizam",
+            "man pesaram",
+            "biya bazi konim",
+            "SHIT"
+        ]
+        $scope.showDetails = false;
+        $scope.myFunc1 = function(names) {
+            $scope.RelayNumber = names.RelayNumber;
+            $scope.Emergency = names.emergency;
+            $scope.Reset = names.reset;
+            $scope.showDetails = !$scope.showDetails;
+        }
+        $scope.myFunc2 = function() {
+            $scope.showDetails = !$scope.showDetails;
+        }
+    });
+</script>
+
+
+</body>
+</html>

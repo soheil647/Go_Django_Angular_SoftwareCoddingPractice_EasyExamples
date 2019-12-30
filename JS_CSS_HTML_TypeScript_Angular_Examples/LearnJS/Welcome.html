@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <script>
+        document.write("<h1>Welcome</h1>");
+        let ID=0;
+        let opacity=0;
+        let FadeID=0;
+        let ZoomID=0;
+        let ZoomDifference=2;
+        /**
+         * @return {boolean}
+         */
+        function Func1() {
+            let Username = document.getElementById("Username");
+            let Password = document.getElementById("Password");
+            let Email = document.getElementById("Email");
+            let Mobile = document.getElementById("Mobile");
+            let regxMobile = /^09\d{9}$/;
+            let regxUsername = /[^(_.) ]/;
+            let regxEmail =/([\w-.]+)@([a-z0-9]+).([a-z]{2,10})(.[a-z]{2,10})?/;
+            console.memory;
+            console.log(Username.value);
+            if(Username.value.trim() === "" || !regxUsername.test(Username.value)){
+                let Style = document.getElementById("Label");
+                Style.style.visibility="visible";
+                return false
+            }
+            if(Password.value.trim() === "" || Password.value.trim().length < 4) {
+                let Style = document.getElementById("Label1");
+                Style.style.visibility="visible";
+                return false
+            }
+            if(Email.value.trim() === "" || !regxEmail.test(Email.value)){
+                let Style = document.getElementById("Label2");
+                Style.style.visibility="visible";
+                return false
+            }
+            if(Mobile.value.trim() === "" || !regxMobile.test(Mobile.value)){
+                let Style = document.getElementById("Label3");
+                Style.style.visibility="visible";
+                return false
+            }
+            else return true
+        }
+        function Start() {
+            ID=setInterval(Animation,3000)
+        }
+        function Stop() {
+            clearInterval(ID)
+        }
+        function Animation() {
+            document.getElementById("MyText").innerHTML = "HAHA You Fool";
+        }
+        function Show() {
+          let img = document.getElementById("img1");
+            opacity = Number(window.getComputedStyle(img).getPropertyValue("opacity"));
+            //opacity = img.style.opacity;
+            if(opacity<1){
+                opacity = opacity + 0.1;
+                img.style.opacity = opacity;
+                console.log(opacity)
+            }
+            else{
+                clearInterval(FadeID)
+            }
+        }
+        function Hide() {
+            let img = document.getElementById("img1");
+            opacity = Number(window.getComputedStyle(img).getPropertyValue("opacity"));
+            //opacity = img.style.opacity;
+            if(opacity>0){
+                opacity = opacity - 0.1;
+                img.style.opacity = opacity;
+                console.log(opacity);
+            }
+            else{
+                clearInterval(FadeID)
+            }
+        }
+        function FadeIn() {
+            clearInterval(FadeID);
+            FadeID = setInterval(Show,100)
+        }
+        function FadeOut() {
+            clearInterval(FadeID);
+            FadeID = setInterval(Hide,100)
+        }
+        function Increase() {
+            clearInterval(ZoomID);
+            ZoomID = setInterval(Expand,10)
+        }
+        function Decrease() {
+            clearInterval(ZoomID);
+            ZoomID = setInterval(Shrink,10)
+        }
+        function Shrink() {
+            let img = document.getElementById("img2");
+            if(img.width>100){
+                img.width = img.width - ZoomDifference;
+            }
+            else{
+                clearInterval(ZoomID);
+            }
+        }
+        function Expand() {
+            let img = document.getElementById("img2");
+            if(img.width<500){
+                img.width = img.width + ZoomDifference;
+            }
+            else{
+                clearInterval(ZoomID);
+            }
+        }
+    </script>
+</head>
+<body>
+
+<form action="Hello.html" onsubmit="return Func1()">
+    <label id="Label" style="color: red; visibility: hidden" for="Username">Invalid</label><input id="Username" type="text" placeholder="Username" >Username<br><br>
+    <label  id="Label1" style="color: red; visibility: hidden" for="Password">Invalid</label><input id="Password" type="text" placeholder="Password" >Password<br><br>
+    <label  id="Label2" style="color: red; visibility: hidden" for="Mobile">Invalid</label><input id="Mobile" type="text" placeholder="Mobile" >Mobile<br><br>
+    <label  id="Label3" style="color: red; visibility: hidden" for="Email">Invalid</label><input id="Email" type="text" placeholder="Email" >Email<br><br>
+    <button type="submit">Click to submit</button>
+</form>
+<br><br><br><br>
+<button id="btm1" type="button" onclick="Start()">Start Me</button><br>
+<h1 id="MyText">MY Text Is Here</h1><br>
+<button id="btm2" type="button" onclick="Stop()">Stop Me</button>
+<br><br><br><br>
+<button id="btm3" type="button" onclick="FadeIn()">FadeIn</button><br>
+<img style="opacity: 0.5" src="image/Just-Cause-4-1-1024x576.jpg" id="img1" alt="WTF Cant Load"><br>
+<button id="btm4" type="button" onclick="FadeOut()">FadeOut</button>
+<br><br><br><br><br><br><br><br>
+<img width="280" onmouseout="Decrease()" onmouseover="Increase()" src="image/download.jpg" id="img2" alt="WTF Cant Load"><br>
+
+
+</body>
+</html>
